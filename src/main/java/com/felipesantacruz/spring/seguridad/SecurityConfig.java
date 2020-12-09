@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	{
 		http
 			.authorizeRequests()
-				.antMatchers("/webjars/**", "/css/**", "/").permitAll()
+				.antMatchers("/webjars/**", "/css/**", "/", "/h2-console/**").permitAll() // h2 console is open to anyone, very bad idea for production
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
@@ -38,6 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 				.and()
 			.logout()
 				.permitAll();
+		// disble csrf and frame options so we can work with h2-console
+		http.csrf().disable();
+		http.headers().frameOptions().disable();
 	}
 	
 	

@@ -84,7 +84,7 @@
 
 						<div class="form-group"
 							th:classappend="${#fields.hasErrors('id') ? 'has-error' : _}">
-							<label for="id">ID</label> <input type="text"
+							<input type="hidden"
 								class="form-control" id="id" placeholder="1" th:field="*{id}"
 								th:readonly="*{id != 0 and not #fields.hasErrors()} ? true : null">
 							<span th:if="${#fields.hasErrors('id')}" th:errors="*{id}"

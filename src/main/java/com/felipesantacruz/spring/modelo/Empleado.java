@@ -1,20 +1,34 @@
 package com.felipesantacruz.spring.modelo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
+@Entity
 public class Empleado
 {
-	@Min(value = 1, message = "{empleado.id.mayorquecero}")
+	@Id
+	@GeneratedValue
+//	@Min(value = 1, message = "{empleado.id.mayorquecero}") comentado porque se generará automáticamente
 	private long id;
+	
+	@Column(nullable = false)
 	@NotEmpty(message = "{empleado.nombre.novacio}")
 	private String nombre;
+	
 	@Email(message = "{empleado.email.valido}")
 	private String email;
+	
 	private String telefono;
+	
 	private boolean directivo;
+	
 	private String imagen;
+	
 	public Empleado() { }
 	
 	public Empleado(long id, String nombre, String email, String telefono, boolean directivo)
@@ -26,8 +40,16 @@ public class Empleado
 		this.telefono = telefono;
 		this.setDirectivo(directivo);
 	}
-	
-	
+
+	public Empleado(@NotEmpty(message = "{empleado.nombre.novacio}") String nombre,
+			@Email(message = "{empleado.email.valido}") String email, String telefono, boolean directivo)
+	{
+		super();
+		this.nombre = nombre;
+		this.email = email;
+		this.telefono = telefono;
+		this.directivo = directivo;
+	}
 
 	public Empleado(@Min(value = 1, message = "{empleado.id.mayorquecero}") long id,
 			@NotEmpty(message = "{empleado.nombre.novacio}") String nombre,
