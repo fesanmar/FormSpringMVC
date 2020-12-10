@@ -13,4 +13,6 @@ public interface EmpleadoService
 	public Empleado findById(long id);
 	
 	public Empleado edit(Empleado e);
+
+	public List<Empleado> findByAnyMatch(String str);
 }

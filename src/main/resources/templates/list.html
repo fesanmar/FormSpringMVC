@@ -79,7 +79,9 @@
 					<li class="active"><a href="#">Inicio</a></li>
 					<li><a href="/empleado/new">Nuevo empleado</a></li>
 				</ul>
-
+				<form class="navbar-form navbar-right">
+					<input type="text" class="form-control" placeholder="Buscar..." name="query" th:value="${param.query}" />
+				</form>
 			</div>
 			<!--/.nav-collapse -->
 		</div>

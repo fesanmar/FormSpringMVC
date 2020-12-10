@@ -39,5 +39,16 @@ public class EmpleadoServiceDB implements EmpleadoService
 	{
 		return repository.save(e);
 	}
+	
+	public void delete(Empleado e)
+	{
+		repository.delete(e);
+	}
+	
+	@Override
+	public List<Empleado> findByAnyMatch(String str)
+	{
+		return repository.findByNombreContainsIgnoreCaseOrEmailContainsIgnoreCaseOrTelefonoContainsIgnoreCase(str, str, str);
+	}
 
 }

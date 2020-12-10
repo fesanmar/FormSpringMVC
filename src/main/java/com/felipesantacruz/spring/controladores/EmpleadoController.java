@@ -1,5 +1,7 @@
 package com.felipesantacruz.spring.controladores;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +33,10 @@ public class EmpleadoController
 	private StorageService storageService;
 
 	@GetMapping({ "/", "empleado/list" })
-	public String listado(Model modelo)
+	public String listado(Model modelo, @RequestParam(name = "query", required = false) String query)
 	{
-		modelo.addAttribute("listaEmpleados", servicio.findAll());
+		List<Empleado> empleados = query == null ? servicio.findAll() : servicio.findByAnyMatch(query);
+		modelo.addAttribute("listaEmpleados", empleados);
 		return "list";
 	}
 
