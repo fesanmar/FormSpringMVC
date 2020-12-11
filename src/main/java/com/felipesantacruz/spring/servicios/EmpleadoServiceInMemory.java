@@ -96,4 +96,13 @@ public class EmpleadoServiceInMemory implements EmpleadoService
 						new Empleado(2, "María López", "maria.lopez@openwebinars.net", "954000000", false),
 						new Empleado(3, "Ángel Antúnez", "angel.antunez@openwebinars.net", "954000000", false)));
 	}
+
+	@Override
+	public List<Empleado> findByAnyMatchAndIsDirectivoEqualTo(String str, boolean isDirectivo)
+	{
+		return findByAnyMatch(str)
+				.stream()
+				.filter(emp -> emp.isDirectivo() == isDirectivo)
+				.collect(Collectors.toList());
+	}
 }

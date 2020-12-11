@@ -48,7 +48,13 @@ public class EmpleadoServiceDB implements EmpleadoService
 	@Override
 	public List<Empleado> findByAnyMatch(String str)
 	{
-		return repository.findByNombreContainsIgnoreCaseOrEmailContainsIgnoreCaseOrTelefonoContainsIgnoreCase(str, str, str);
+		return repository.findByNombreEmailOrPhone(str);
+	}
+	
+	@Override
+	public List<Empleado> findByAnyMatchAndIsDirectivoEqualTo(String str, boolean isDirectivo)
+	{
+		return repository.findByNombreEmailOrPhoneAndIsDerectivo(str, isDirectivo);
 	}
 
 }

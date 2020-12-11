@@ -15,4 +15,6 @@ public interface EmpleadoService
 	public Empleado edit(Empleado e);
 
 	public List<Empleado> findByAnyMatch(String str);
+
+	public List<Empleado> findByAnyMatchAndIsDirectivoEqualTo(String str, boolean isDirectivo);
 }

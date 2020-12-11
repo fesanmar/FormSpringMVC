@@ -33,9 +33,16 @@ public class EmpleadoController
 	private StorageService storageService;
 
 	@GetMapping({ "/", "empleado/list" })
-	public String listado(Model modelo, @RequestParam(name = "query", required = false) String query)
+	public String listado(Model modelo, @RequestParam(name = "query", required = false) String query,
+			@RequestParam(name = "directivo", required = false) Boolean directivo)
 	{
-		List<Empleado> empleados = query == null ? servicio.findAll() : servicio.findByAnyMatch(query);
+		List<Empleado> empleados;
+		if (query != null && directivo == null)
+			empleados = servicio.findByAnyMatch(query);
+		else if (query != null && directivo != null)
+			empleados = servicio.findByAnyMatchAndIsDirectivoEqualTo(query, directivo);
+		else
+			empleados = servicio.findAll();
 		modelo.addAttribute("listaEmpleados", empleados);
 		return "list";
 	}
@@ -58,7 +65,7 @@ public class EmpleadoController
 			return "form";
 		if (!file.isEmpty())
 			storageEmployAvatar(nuevoEmpleado, file);
-		
+
 		servicio.add(nuevoEmpleado);
 		return "redirect:/empleado/list";
 	}
@@ -66,8 +73,8 @@ public class EmpleadoController
 	private void storageEmployAvatar(Empleado nuevoEmpleado, MultipartFile file)
 	{
 		String avatar = storageService.store(file, nuevoEmpleado.getId());
-		nuevoEmpleado.setImagen(MvcUriComponentsBuilder
-				.fromMethodName(EmpleadoController.class, "serveFile", avatar).build().toUriString());
+		nuevoEmpleado.setImagen(MvcUriComponentsBuilder.fromMethodName(EmpleadoController.class, "serveFile", avatar)
+				.build().toUriString());
 	}
 
 	@GetMapping("/empleado/edit/{id}")
