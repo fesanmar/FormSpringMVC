@@ -32,3 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 /empleados.mv.db
+/empleados.trace.db
